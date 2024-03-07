@@ -1,0 +1,32 @@
+.app {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 2vw;
+  background-color: rgba(95, 61, 196, 0.1);
+}
+
+.block {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  min-height: 100px;
+  margin-bottom: 15px;
+}
+
+.widhter {
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+}

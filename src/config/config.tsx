@@ -6,7 +6,7 @@ export const getEnv = () : Config | undefined => {
         return;
     };
 
-    const initapiHost = import.meta.env.VITE_DELAY_INITAPI_HOST
+    const initapiHost = import.meta.env.VITE_INITAPI_SERVICE_HOST
     if (initapiHost === undefined) {
         return;
     };

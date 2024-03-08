@@ -38,9 +38,9 @@ function Delay({ }: Props) {
     };
 
     return (
-        <div>
+        <form id="delayForm" onSubmit={() => sendDelay(delay)}>
             <NumberInput
-                label="Введите задержку"
+                label="Настройка задержки"
                 placeholder="Секунды"
                 suffix=" сек"
                 defaultValue={delay}
@@ -51,7 +51,7 @@ function Delay({ }: Props) {
                     Установить задержку
                 </Button>
             </div>
-        </div>
+        </form>
     );
 };
 

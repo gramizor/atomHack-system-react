@@ -33,7 +33,7 @@ function SendFile({ }: Props) {
     };
 
     return (
-        <div>
+        <form id="sendFileForm" onSubmit={handleClick}>
             <FileInput
                 label="Загрузка файла"
                 placeholder="Выберите json file"
@@ -49,7 +49,7 @@ function SendFile({ }: Props) {
                     Отправить файл
                 </Button>
             </div>
-        </div>
+        </form>
     )
 }
 

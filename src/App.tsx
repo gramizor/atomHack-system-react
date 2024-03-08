@@ -5,6 +5,18 @@ import { Button, MantineProvider } from '@mantine/core'
 import SendFile from './Components/SendFile/SendFile'
 
 function App() {
+
+  const handleSubmitRequests = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const sendFileForm = document.getElementById("sendFileForm") as HTMLFormElement;
+    const delayForm = document.getElementById("delayForm") as HTMLFormElement;
+
+    if (sendFileForm && delayForm) {
+      sendFileForm.dispatchEvent(new Event("submit", { cancelable: true }));
+      delayForm.dispatchEvent(new Event("submit", { cancelable: true }));
+    }
+  };
+  
   return (
     <>
       <div className='app'>
@@ -18,7 +30,7 @@ function App() {
                 <Delay />
               </div>
             </div>
-            <Button fullWidth >
+            <Button fullWidth onClick={handleSubmitRequests}>
               Отправить все данные
             </Button>
           </div>

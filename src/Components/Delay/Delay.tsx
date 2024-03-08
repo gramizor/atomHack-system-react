@@ -11,7 +11,7 @@ function Delay({ DELAY_SERVICE_HOST } : Config) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${DELAY_SERVICE_HOST} /api/delay`);
+                const response = await axios.get(`${DELAY_SERVICE_HOST}/api/delay`);
                 const data = response.data;
                 setDelay(data);
             } catch (error) {

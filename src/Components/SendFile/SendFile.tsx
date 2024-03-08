@@ -21,7 +21,7 @@ function SendFile({ INITAPI_SERVICE_HOST} : Config) {
         formData.append('file', value);
 
         try {
-            await axios.post(`https://${INITAPI_SERVICE_HOST}/api/init-periods`, formData, {
+            await axios.post(`${INITAPI_SERVICE_HOST}/api/init-periods`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

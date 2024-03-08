@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Button, FileInput, rem } from '@mantine/core';
-import './SendFile.scss'
 import { IconFileCode } from '@tabler/icons-react';
+import { Config } from "../../config/types";
 import axios from 'axios';
 
-type Props = {}
+import './SendFile.scss'
 
-function SendFile({ }: Props) {
+function SendFile({ INITAPI_SERVICE_HOST} : Config) {
     const [value, setValue] = useState<File | null>(null);
 
     const icon = <IconFileCode style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
@@ -21,7 +21,7 @@ function SendFile({ }: Props) {
         formData.append('file', value);
 
         try {
-            await axios.post('https://initapi.cry1s.ru/api/init-periods', formData, {
+            await axios.post(`https://${INITAPI_SERVICE_HOST}/api/init-periods`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

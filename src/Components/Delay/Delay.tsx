@@ -1,17 +1,17 @@
 import { Button, NumberInput } from "@mantine/core"
-import './Delay.scss'
+import { Config } from "../../config/types";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 
-type Props = {}
+import './Delay.scss'
 
-function Delay({ }: Props) {
+function Delay({ DELAY_SERVICE_HOST } : Config) {
     const [delay, setDelay] = useState(10);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://delay.cry1s.ru/api/delay');
+                const response = await axios.get(`https://${DELAY_SERVICE_HOST} /api/delay`);
                 const data = response.data;
                 setDelay(data);
             } catch (error) {
@@ -28,7 +28,7 @@ function Delay({ }: Props) {
     const sendDelay = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            await axios.post(`https://delay.cry1s.ru/api/delay?delay=${delay}`);
+            await axios.post(`https://${DELAY_SERVICE_HOST}/api/delay?delay=${delay}`);
         } catch (error) {
             console.error('Ошибка при отправке задержки:', error);
         }

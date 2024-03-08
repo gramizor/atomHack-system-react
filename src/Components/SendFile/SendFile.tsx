@@ -21,12 +21,12 @@ function SendFile({ }: Props) {
         formData.append('file', value);
 
         try {
-            const response = await axios.post('http://initapi.cry1s.ru/api/init-periods', formData, {
+            await axios.post('http://initapi.cry1s.ru/api/init-periods', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('API response:', response.data);
+            // console.log('API response:', response.data);
         } catch (error) {
             console.error('Error sending request:', error);
         }

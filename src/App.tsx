@@ -5,7 +5,6 @@ import { Button, MantineProvider } from '@mantine/core'
 import SendFile from './Components/SendFile/SendFile'
 
 function App() {
-
   return (
     <>
       <div className='app'>
@@ -19,7 +18,7 @@ function App() {
                 <Delay />
               </div>
             </div>
-            <Button fullWidth>
+            <Button fullWidth >
               Отправить все данные
             </Button>
           </div>

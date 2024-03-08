@@ -21,7 +21,7 @@ function SendFile({ }: Props) {
         formData.append('file', value);
 
         try {
-            await axios.post('http://initapi.cry1s.ru/api/init-periods', formData, {
+            await axios.post('https://initapi.cry1s.ru/api/init-periods', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

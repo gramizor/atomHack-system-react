@@ -11,9 +11,9 @@ function Delay({ }: Props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://delay.cry1s.ru/api/delay');
+                const response = await axios.get('https://delay.cry1s.ru/api/delay');
                 const data = response.data;
-                setDelay(data.delay);
+                setDelay(data);
             } catch (error) {
                 if (error instanceof AxiosError) {
                     console.error('Ошибка при получении задержки:', error.message);
@@ -25,20 +25,25 @@ function Delay({ }: Props) {
         fetchData();
     }, []);
 
-    const sendDelay = async (delay: number) => {
+    const sendDelay = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         try {
-            await axios.post(`http://delay.cry1s.ru/api/delay?delay=${delay}`);
+            await axios.post(`https://delay.cry1s.ru/api/delay?delay=${delay}`);
         } catch (error) {
             console.error('Ошибка при отправке задержки:', error);
         }
     };
 
     const handleChange = (value: string | number) => {
-        setDelay(typeof value === 'string' ? parseInt(value, 10) : value);
+        if (typeof value === "string") {
+            return;
+        }
+        
+        setDelay(value);
     };
 
     return (
-        <form id="delayForm" onSubmit={() => sendDelay(delay)}>
+        <form id="delayForm" onSubmit={sendDelay}>
             <NumberInput
                 label="Настройка задержки"
                 placeholder="Секунды"
@@ -47,7 +52,7 @@ function Delay({ }: Props) {
                 onChange={handleChange}
             />
             <div style={{ marginTop: '5px' }}>
-                <Button fullWidth onClick={() => sendDelay(delay)}>
+                <Button fullWidth type="submit">
                     Установить задержку
                 </Button>
             </div>

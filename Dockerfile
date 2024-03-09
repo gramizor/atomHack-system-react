@@ -11,8 +11,10 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 FROM deps as build
 ARG VITE_DELAY_SERVICE_HOST
 ARG VITE_INITAPI_SERVICE_HOST
+ARG VITE_SENDER_SERVICE_HOST
 ENV VITE_DELAY_SERVICE_HOST=${VITE_DELAY_SERVICE_HOST}
 ENV VITE_INITAPI_SERVICE_HOST=${VITE_INITAPI_SERVICE_HOST}
+ENV VITE_SENDER_SERVICE_HOST=${VITE_SENDER_SERVICE_HOST}
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \

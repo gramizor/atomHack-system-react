@@ -1,0 +1,17 @@
+.chart-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-around;
+    background-color: rgba(95, 61, 196, 0.1);
+}
+
+.date-picker {
+    margin-right: 20px;
+    width: 20%;
+}
+
+.chart {
+    z-index: 100;
+    width: 70%;
+}

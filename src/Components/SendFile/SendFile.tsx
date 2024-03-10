@@ -6,7 +6,11 @@ import axios from 'axios';
 import { notifications } from '@mantine/notifications';
 import './SendFile.scss';
 
-function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
+type Props = {
+    setJsonData: (JSON: object[]) => void;
+}
+
+function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST, setJsonData }: Config & Props): React.ReactElement {
     const [value, setValue] = useState<File | null>(null);
     const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
     const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
@@ -71,8 +75,6 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
         event.preventDefault();
     };
 
-
-
     const handleFileChange = (file: File | null) => {
         setValue(file);
         if (file) {
@@ -85,7 +87,8 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
         reader.onload = () => {
             try {
                 const parsedData = JSON.parse(reader.result as string);
-                console.log('Parsed JSON data:', parsedData);
+                setJsonData(parsedData);
+                console.log(parsedData);
             } catch (error) {
                 console.error('Error parsing JSON:', error);
                 notifications.show({
@@ -118,7 +121,6 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
                 label="Загрузка файла"
                 placeholder="Выберите или перетащите json file"
                 value={value}
-                // onChange={setValue}
                 onChange={handleFileChange}
                 accept=".json"
                 clearable
@@ -130,6 +132,7 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
                     Отправить файл
                 </Button>
             </div>
+            {/* <Chart jsonData={jsonData} /> */}
         </div>
     );
 }

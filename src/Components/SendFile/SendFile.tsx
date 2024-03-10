@@ -71,19 +71,55 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
         event.preventDefault();
     };
 
+
+
+    const handleFileChange = (file: File | null) => {
+        setValue(file);
+        if (file) {
+            parseJSONFile(file);
+        }
+    };
+
+    const parseJSONFile = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            try {
+                const parsedData = JSON.parse(reader.result as string);
+                console.log('Parsed JSON data:', parsedData);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                notifications.show({
+                    title: 'Ошибка!',
+                    message: 'Ошибка при парсинге JSON файла',
+                    icon: xIcon,
+                    color: 'red',
+                    withCloseButton: true,
+                    autoClose: 5000,
+                });
+            }
+        };
+        reader.readAsText(file);
+    };
+
     return (
         <div
             id="sendFileForm"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragEnter={handleDragEnter}
-            style={{ border: '2px dashed #ccc', padding: '20px', borderRadius: '5px' }}
+            style={{
+                border:
+                    '2px dashed #ccc',
+                padding: '35px 50px',
+                borderRadius: '5px'
+            }}
         >
             <FileInput
                 label="Загрузка файла"
                 placeholder="Выберите или перетащите json file"
                 value={value}
-                onChange={setValue}
+                // onChange={setValue}
+                onChange={handleFileChange}
                 accept=".json"
                 clearable
                 leftSection={icon}

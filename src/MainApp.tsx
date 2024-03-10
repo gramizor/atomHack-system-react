@@ -3,6 +3,7 @@ import Delay from './Components/Delay/Delay'
 import SendFile from './Components/SendFile/SendFile'
 import Header from './Components/Header/Header';
 import { getEnv } from './config/config';
+import Chart from './Chart/Chart';
 
 function MainApp() {
     const config = getEnv();
@@ -29,6 +30,7 @@ function MainApp() {
                         </div>
                     </div>
                 </div>
+                <Chart />
             </div >
         </div>
     )

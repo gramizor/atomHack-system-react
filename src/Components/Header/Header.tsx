@@ -17,6 +17,7 @@ function Header() {
             <div className="other-services">
                 <Group>
                     <Anchor
+                        className="custom-anchor"
                         href="https://atomearth.cry1s.ru/"
                         target="_blank"
                         underline="hover"
@@ -27,6 +28,7 @@ function Header() {
                         Сервис земли
                     </Anchor>
                     <Anchor
+                        className="custom-anchor"
                         href="https://atommars.cry1s.ru/"
                         target="_blank"
                         underline="hover"

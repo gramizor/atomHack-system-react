@@ -11,7 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
-  height: 100vh;
+  /* height: 100vh; */
   background-color: rgba(95, 61, 196, 0.1);
 }
 

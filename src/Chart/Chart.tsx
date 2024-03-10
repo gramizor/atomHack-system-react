@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DatePicker } from '@mantine/dates';
 import { AreaChart } from '@mantine/charts';
 import './Chart.scss';
@@ -14,6 +14,7 @@ interface DataItem {
 
 const Chart: React.FC<ChartProps> = ({ jsonData }) => {
     const [selectedDateRange, setSelectedDateRange] = React.useState<[Date | null, Date | null]>([null, null]);
+
     const filterDataByDateRange = (data: DataItem[], dateRange: [Date | null, Date | null]) => {
         const [startDate, endDate] = dateRange;
 
@@ -22,24 +23,28 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
         }
 
         if (startDate && !endDate) {
-            const selectedDate = startDate;
+            const selectedDate = startDate.getTime(); // Получаем миллисекунды
             return data.filter(item => {
-                const fromTime = new Date(item.from);
-                const toTime = new Date(item.to);
-
+                const fromTime = new Date(item.from).getTime(); // Получаем миллисекунды
+                const toTime = new Date(item.to).getTime(); // Получаем миллисекунды
                 return fromTime <= selectedDate && toTime >= selectedDate;
             });
         }
-        const filteredStartDate = startDate ?? new Date(-8640000000000000);
 
-        const filteredEndDate = endDate ?? new Date(8640000000000000);
+        if (startDate == endDate) {
+
+        }
+
+        const filteredStartDate = startDate?.getTime() ?? Number.MIN_SAFE_INTEGER; // Получаем миллисекунды
+        const filteredEndDate = endDate?.getTime() ?? Number.MAX_SAFE_INTEGER; // Получаем миллисекунды
 
         return data.filter(item => {
-            const fromTime = new Date(item.from);
-            const toTime = new Date(item.to);
+            const fromTime = new Date(item.from).getTime(); // Получаем миллисекунды
+            const toTime = new Date(item.to).getTime(); // Получаем миллисекунды
             return fromTime >= filteredStartDate && toTime <= filteredEndDate;
         });
     };
+
 
     const transformData = (): { date: string; speed: number }[] => {
         const transformedData: { date: string; speed: number }[] = [];
@@ -60,8 +65,8 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
 
                 if (i < jsonData.length - 1) {
                     const nextItem = jsonData[i + 1];
-                    const gapStart = new Date(toTime.getTime() + 1).toLocaleString();
-                    const gapEnd = new Date(nextItem.from).toLocaleString();
+                    const gapStart = toTime.toLocaleString(); // Начало промежутка - конечная дата текущего элемента
+                    const gapEnd = new Date(nextItem.from).toLocaleString(); // Конец промежутка - начальная дата следующего элемента                    
                     transformedData.push({ date: gapStart, speed: 0 });
                     transformedData.push({ date: gapEnd, speed: 0 });
                 } else {
@@ -69,18 +74,20 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
                 }
             }
         }
+        // console.log(transformedData);
         return transformedData;
     };
+    // useEffect(() => console.log(selectedDateRange), [selectedDateRange]);
     return (
         <div className='chart-container'>
-            <div className='date-picker'>
+            {/* <div className='date-picker'>
                 <DatePicker
                     type="range"
                     allowSingleDateInRange
                     value={selectedDateRange}
                     onChange={setSelectedDateRange}
                 />
-            </div>
+            </div> */}
             <div className='chart'>
                 <AreaChart
                     h={300}

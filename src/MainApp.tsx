@@ -16,7 +16,7 @@ function MainApp() {
 
     return (
         <div>
-            <Header />
+            <Header {...config} />
             <div className='app'>
                 <div className="widhter">
                     <div className="block">

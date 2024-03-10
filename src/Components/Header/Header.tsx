@@ -1,11 +1,12 @@
 import { Anchor, Group } from '@mantine/core';
 import './Header.scss'
+import { Config } from '../../config/types';
 
-function Header() {
+function Header({ EARTH_FRONTEND_HOST, MARS_FRONTEND_HOST, INIT_FRONTEND_HOST }: Config) {
     return (
         <div className="header">
             <Anchor
-                href="https://atominit.cry1s.ru/"
+                href={INIT_FRONTEND_HOST}
                 // target="_blank"
                 underline="hover"
                 c="white"
@@ -18,7 +19,7 @@ function Header() {
                 <Group>
                     <Anchor
                         className="custom-anchor"
-                        href="https://atomearth.cry1s.ru/"
+                        href={EARTH_FRONTEND_HOST}
                         target="_blank"
                         underline="hover"
                         c="white"
@@ -29,7 +30,7 @@ function Header() {
                     </Anchor>
                     <Anchor
                         className="custom-anchor"
-                        href="https://atommars.cry1s.ru/"
+                        href={MARS_FRONTEND_HOST}
                         target="_blank"
                         underline="hover"
                         c="white"

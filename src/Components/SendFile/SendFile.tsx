@@ -6,7 +6,7 @@ import axios from 'axios';
 import { notifications } from '@mantine/notifications';
 import './SendFile.scss';
 
-function SendFile({ INITAPI_SERVICE_HOST }: Config) {
+function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST }: Config) {
     const [value, setValue] = useState<File | null>(null);
     const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
     const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
@@ -35,6 +35,7 @@ function SendFile({ INITAPI_SERVICE_HOST }: Config) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            await axios.post(`${SENDER_SERVICE_HOST}/periods`);
             notifications.show({
                 title: 'Успешно!',
                 message: 'Файл отправлен',

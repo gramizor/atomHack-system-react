@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { DatePicker } from '@mantine/dates';
 import { AreaChart } from '@mantine/charts';
 import './Chart.scss';

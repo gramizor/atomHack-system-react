@@ -88,7 +88,6 @@ function SendFile({ INITAPI_SERVICE_HOST, SENDER_SERVICE_HOST, setJsonData }: Co
             try {
                 const parsedData = JSON.parse(reader.result as string);
                 setJsonData(parsedData);
-                console.log(parsedData);
             } catch (error) {
                 console.error('Error parsing JSON:', error);
                 notifications.show({

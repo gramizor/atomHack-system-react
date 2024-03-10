@@ -1,44 +1,32 @@
-import { Anchor, Group } from '@mantine/core';
+import { Group } from '@mantine/core';
 import './Header.scss'
 import { Config } from '../../config/types';
 
 function Header({ EARTH_FRONTEND_HOST, MARS_FRONTEND_HOST, INIT_FRONTEND_HOST }: Config) {
     return (
         <div className="header">
-            <Anchor
+            <a
                 href={INIT_FRONTEND_HOST}
-                // target="_blank"
-                underline="hover"
-                c="white"
-                size='lg'
-                fw={500}
+            // target="_blank"
             >
                 Панель конфигурации
-            </Anchor>
+            </a>
             <div className="other-services">
                 <Group>
-                    <Anchor
+                    <a
                         className="custom-anchor"
                         href={EARTH_FRONTEND_HOST}
                         target="_blank"
-                        underline="hover"
-                        c="white"
-                        size='lg'
-                        fw={500}
                     >
                         Сервис земли
-                    </Anchor>
-                    <Anchor
+                    </a>
+                    <a
                         className="custom-anchor"
                         href={MARS_FRONTEND_HOST}
                         target="_blank"
-                        underline="hover"
-                        c="white"
-                        size='lg'
-                        fw={500}
                     >
                         Сервис марса
-                    </Anchor>
+                    </a>
                 </Group>
             </div>
         </div>

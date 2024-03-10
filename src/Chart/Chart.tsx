@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DatePicker } from '@mantine/dates';
 import { AreaChart } from '@mantine/charts';
 import './Chart.scss';
@@ -47,6 +47,7 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
 
         return transformedData;
     };
+    useEffect(() => console.log(selectedDateRange), [selectedDateRange]);
 
     return (
         <div className='chart-container'>
@@ -61,11 +62,9 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
             <div className='chart'>
                 <AreaChart
                     h={300}
-                    data={transformData()} // Передаем преобразованные данные
-                    dataKey="date" // Теперь используем "date" в качестве оси времени
-                    series={[
-                        { name: 'speed', color: 'indigo.6' },
-                    ]}
+                    data={transformData()}
+                    dataKey="date"
+                    series={[{ name: 'speed', color: 'indigo.6' }]}
                     curveType="linear"
                     tickLine="xy"
                     gridAxis="xy"
@@ -73,6 +72,6 @@ const Chart: React.FC<ChartProps> = ({ jsonData }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Chart;

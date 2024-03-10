@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { DatePicker } from '@mantine/dates';
+import React from 'react';
+// import { DatePicker } from '@mantine/dates';
 import { AreaChart } from '@mantine/charts';
 import './Chart.scss';
 interface ChartProps {
@@ -13,7 +13,7 @@ interface DataItem {
 }
 
 const Chart: React.FC<ChartProps> = ({ jsonData }) => {
-    const [selectedDateRange, setSelectedDateRange] = React.useState<[Date | null, Date | null]>([null, null]);
+    const [selectedDateRange] = React.useState<[Date | null, Date | null]>([null, null]);
 
     const filterDataByDateRange = (data: DataItem[], dateRange: [Date | null, Date | null]) => {
         const [startDate, endDate] = dateRange;

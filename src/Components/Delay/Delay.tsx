@@ -1,16 +1,15 @@
-import { Button, NumberInput, Notification, rem } from "@mantine/core";
+import { Button, NumberInput, rem } from "@mantine/core";
 import { Config } from "../../config/types";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { IconX, IconCheck } from '@tabler/icons-react';
-
+import { notifications } from '@mantine/notifications';
 import './Delay.scss';
 
 function Delay({ DELAY_SERVICE_HOST }: Config) {
     const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
     const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
     const [delay, setDelay] = useState<number>();
-    const [notification, setNotification] = useState<React.ReactNode | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,32 +17,24 @@ function Delay({ DELAY_SERVICE_HOST }: Config) {
                 const response = await axios.get(`${DELAY_SERVICE_HOST}/api/delay`);
                 const data = response.data;
                 setDelay(data);
-                showNotification(
-                    <Notification
-                        icon={checkIcon}
-                        color="teal"
-                        title="Успешно!"
-                        mt="md"
-                        closeButtonProps={{ 'aria-label': 'Hide notification' }}
-                        onClose={() => setNotification(null)} // Добавляем обработчик закрытия уведомления
-                    >
-                        Задержка получена
-                    </Notification>
-                );
+                notifications.show({
+                    title: 'Успешно!',
+                    message: 'Задержка получена',
+                    icon: checkIcon,
+                    color: 'teal',
+                    withCloseButton: true,
+                    autoClose: 5000,
+                })
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    showNotification(
-                        <Notification
-                            icon={xIcon}
-                            color="red"
-                            title="Ошибка"
-                            mt="md"
-                            closeButtonProps={{ 'aria-label': 'Hide notification' }}
-                            onClose={() => setNotification(null)} // Добавляем обработчик закрытия уведомления
-                        >
-                            Не удалось получить задержку
-                        </Notification>
-                    );
+                    notifications.show({
+                        title: 'Ошибка!',
+                        message: 'Не удалось получить задержку',
+                        icon: xIcon,
+                        color: 'red',
+                        withCloseButton: true,
+                        autoClose: 5000,
+                    })
                 } else {
                     console.error('Ошибка при получении задержки:', error);
                 }
@@ -52,43 +43,28 @@ function Delay({ DELAY_SERVICE_HOST }: Config) {
         fetchData();
     }, [DELAY_SERVICE_HOST]);
 
-    const showNotification = (notification: React.ReactNode) => {
-        setNotification(notification);
-        setTimeout(() => {
-            setNotification(null);
-        }, 5000);
-    };
-
     const sendDelay = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             await axios.post(`${DELAY_SERVICE_HOST}/api/delay?delay=${delay}`);
-            showNotification(
-                <Notification
-                    icon={checkIcon}
-                    color="teal"
-                    title="Успешно!"
-                    mt="md"
-                    closeButtonProps={{ 'aria-label': 'Hide notification' }}
-                    onClose={() => setNotification(null)} // Добавляем обработчик закрытия уведомления
-                >
-                    Задержка установлена
-                </Notification>
-            );
+            notifications.show({
+                title: 'Успешно!',
+                message: 'Задержка установлена',
+                icon: checkIcon,
+                color: 'teal',
+                withCloseButton: true,
+                autoClose: 5000,
+            })
         } catch (error) {
             console.error('Ошибка при отправке задержки:', error);
-            showNotification(
-                <Notification
-                    icon={xIcon}
-                    color="red"
-                    mt="md"
-                    title="Ошибка"
-                    closeButtonProps={{ 'aria-label': 'Hide notification' }}
-                    onClose={() => setNotification(null)} // Добавляем обработчик закрытия уведомления
-                >
-                    Не удалось отправить задержку
-                </Notification>
-            );
+            notifications.show({
+                title: 'Ошибка!',
+                message: 'Не удалось отправить задержку',
+                icon: xIcon,
+                color: 'red',
+                withCloseButton: true,
+                autoClose: 5000,
+            })
         }
     };
 
@@ -101,7 +77,7 @@ function Delay({ DELAY_SERVICE_HOST }: Config) {
     return (
         <form id="delayForm" onSubmit={sendDelay}>
             <NumberInput
-                label="Настройка задержки"
+                label="Настройка задержки между марсом и землей"
                 placeholder="Секунды"
                 suffix=" сек"
                 value={delay}
@@ -112,7 +88,6 @@ function Delay({ DELAY_SERVICE_HOST }: Config) {
                     Установить задержку
                 </Button>
             </div>
-            {notification}
         </form>
     );
 };
